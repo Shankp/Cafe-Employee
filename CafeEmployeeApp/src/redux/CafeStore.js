@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import CafeState from '../Components/Common/CommonUtils'
+import { CafeState } from '../Components/Common/CommonUtils'
 
 
 //const combineReducer = createStore.combineReducers;

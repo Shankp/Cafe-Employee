@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const EmployeeStateSlice = createSlice({
-    name: 'employee',
+export const EmployeeIdStateSlice = createSlice({
+    name: 'employeeId',
     initialState: {
         value: 0,
     },
@@ -13,6 +13,6 @@ export const EmployeeStateSlice = createSlice({
     },
 })
 
-export const { GetExployeeId } = EmployeeStateSlice.actions
+export const { GetExployeeId } = EmployeeIdStateSlice.actions
 
-export default EmployeeStateSlice.reducer
+export default EmployeeIdStateSlice.reducer

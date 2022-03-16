@@ -1,6 +1,9 @@
-const CafeState = {
-  CafeOverview: 10,
-  AddCafe: 11,
+export const CafeState = {
+  CafeOverview: 1,
+  AddCafe: 2,
 };
 
-export default CafeState;
+export const EmployeeState = {
+  EmployeeList: 1,
+  AddEmployee: 11,
+};

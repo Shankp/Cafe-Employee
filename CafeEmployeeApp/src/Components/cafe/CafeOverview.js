@@ -1,95 +1,20 @@
-import react, { useState, useCallback, useRef } from 'react';
-import { render } from 'react-dom';
+import { useState, useCallback, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { Navigate } from 'react-router-dom';
-import loadEmployeesRenderer from './buttonClickRenderer';
-import ActionClickRenderer from './actionClickRenderer';
-import { Row, Col, Button, Form, Input, InputNumber } from 'antd';
-import store from "./../../redux/store";
+import loadEmployeesRenderer from './EmploeeButton';
+import ActionClickRenderer from './AlterActionsButton';
+import { Row, Col, Button } from 'antd';
 import cafeStore from "./../../redux/CafeStore";
-import CafeState from './../Common/CommonUtils'
+import {CafeState} from './../Common/CommonUtils'
 import { useSelector, useDispatch } from 'react-redux'
-import { GetCafeOverView, GetCafeAddView } from './CafeStateSlice'
-
+import { GetCafeAddView } from './CafeStateSlice'
+import MyForm from './CafeForm'
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'antd/dist/antd.css';
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
-
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
-    },
-};
-
-const MyForm = () => {
-
-    const state = useSelector((state) => state.cafe.value);
-    const dispatch = useDispatch()
-    // const [forceUpdate] = useForceUpdate()
-    const onFinish = (values: any) => {
-        //console.log(values);
-        //cafeStore.dispatch({ type: CafeState.CafeOverview });
-        //forceUpdate()
-    };
-
-    const cancelForm = () => {
-        //console.log(values);
-        //cafeStore.dispatch({ type: CafeState.CafeOverview });
-        dispatch(GetCafeOverView())
-        //forceUpdate()
-    };
-
-
-
-
-    return (
-        <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
-                <Input />
-            </Form.Item>
-            <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
-                <Input />
-            </Form.Item>
-            <Form.Item name={['user', 'age']} label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
-                <InputNumber />
-            </Form.Item>
-            <Form.Item name={['user', 'website']} label="Website">
-                <Input />
-            </Form.Item>
-            <Form.Item name={['user', 'introduction']} label="Introduction">
-                <Input.TextArea />
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button style={{ margin: 2 }} type="primary" htmlType="submit">
-                    Submit
-                </Button>
-                <Button type="primary" htmlType="button" onClick={() => cancelForm()}>
-                    Cancel
-                </Button>
-            </Form.Item>
-        </Form>
-    );
-};
-// const useForceUpdate = () => {
-//     const [count, setCount] = useState(0)
-
-//     const increment = () => setCount(prevCount => prevCount + 1)
-//     return [increment, count]
-// }
 
 const CafeTable = () => {
-
 
     const state = useSelector((state) => state.cafe.value);
     const dispatch = useDispatch()
@@ -186,3 +111,5 @@ const CafeTable = () => {
 }
 
 export default CafeTable;
+
+

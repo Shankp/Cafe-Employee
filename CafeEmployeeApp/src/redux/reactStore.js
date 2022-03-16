@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import cafeStateReducer from './../Components/cafe/CafeStateSlice'
-import employeeStateReducer from './../Components/Employee/EmployeeSlice'
+import employeeIdStateReducer from './../Components/Employee/EmployeeIdSlice'
+import employeeStateReducer from './../Components/Employee/EmployeeStateSlice'
 
 
 export default configureStore({
   reducer: {
     cafe: cafeStateReducer,
-    employee: employeeStateReducer
+    employeeViewState: employeeStateReducer,
+    employeeId: employeeIdStateReducer
   },
 })
