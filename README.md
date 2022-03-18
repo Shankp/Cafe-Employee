@@ -4,7 +4,7 @@
 
 1. Run `npm install` command inside the CafeEmployeeApp folder which contains React front end.
 
-2. Open the `CafeManagerServer` folder and open the solution(BidSystem.sln) by Visual studion 2019.
+2. Open the `CafeManagerServer` folder and open the solution(CafeManagerServer.sln) by Visual studion 2019.
 
 3. Run the `CafeSQLWithData.sql` file(https://github.com/Shankp/Cafe-Employee/tree/master/SqlScript/CafeSQLWithData.sql ) in MySql workbench to create the database.
 
