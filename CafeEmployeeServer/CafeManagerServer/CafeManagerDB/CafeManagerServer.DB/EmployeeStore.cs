@@ -87,7 +87,7 @@ namespace CafeManagerServer.DB
             return true;
         }
 
-        public bool DeleteEmployee(string employeeId)
+        public int DeleteEmployee(string employeeId)
         {
             using var context = new cafemanagerdbContext(_configuration);
             var empCafe = context.Cafeemployee.FirstOrDefault(c => c.EmployeeId == employeeId);
@@ -96,7 +96,7 @@ namespace CafeManagerServer.DB
             var employee = context.Employee.FirstOrDefault(c => c.EmployeeId == employeeId);
             context.Employee.Remove(employee ?? throw new InvalidOperationException());
             context.SaveChanges();
-            return true;
+            return context.Cafeemployee.Count(c=>c.CafeId == empCafe.CafeId);
         }
     }
 }

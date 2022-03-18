@@ -31,7 +31,7 @@ namespace CafeManagerServer.Services
             return _employeeStore.UpdateEmployee(employee);
         }
 
-        public bool DeleteEmployee(string employeeId)
+        public int DeleteEmployee(string employeeId)
         {
             return _employeeStore.DeleteEmployee(employeeId);
         }

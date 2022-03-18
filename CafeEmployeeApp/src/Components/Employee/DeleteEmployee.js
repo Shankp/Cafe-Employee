@@ -1,25 +1,19 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Popconfirm } from "antd";
+import { useDispatch } from "react-redux";
 import { DeleteEmployee } from "./../../Services/EmployeeService";
+import { GetEmployeeCountByState } from '../../redux/Slices/UpdateEmployeeStateSlice'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
     const empId = props.valueFormatted ? props.valueFormatted : props.value;
-    const navigate = useNavigate();
 
+    const dispatch = useDispatch()
 
 
     const DeleteClicked = async () => {
-        console.log(empId)
-        var isDeleted = await DeleteEmployee(empId);
-        console.log(isDeleted);
-        if (isDeleted) {
-            //dispatch(GetCafeOverView());
-        } else {
-        }
-
-        console.log("Delete button clicked");
+        var empCount = await DeleteEmployee(empId);
+        dispatch(GetEmployeeCountByState(empCount))
     };
 
     function cancel(e) {

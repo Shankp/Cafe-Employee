@@ -13,6 +13,6 @@ namespace CafeManagerServer.DB
 
         bool UpdateEmployee(Employee employee);
 
-        bool DeleteEmployee(string employeeId);
+        int DeleteEmployee(string employeeId);
     }
 }

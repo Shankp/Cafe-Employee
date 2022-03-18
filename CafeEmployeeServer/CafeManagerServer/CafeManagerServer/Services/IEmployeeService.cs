@@ -15,6 +15,6 @@ namespace CafeManagerServer.Services
 
         bool UpdateEmployee (Employee employee);
 
-        bool DeleteEmployee(string employeeId);
+        int DeleteEmployee(string employeeId);
     }
 }
