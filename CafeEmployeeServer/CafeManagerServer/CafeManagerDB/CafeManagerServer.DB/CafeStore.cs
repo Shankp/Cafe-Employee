@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CafeManagerServer.DB.DbCore;
 using CafeManagerServer.DB.Mappers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Cafe = CafeManager.Common.Models.Cafe;
 
@@ -60,9 +61,10 @@ namespace CafeManagerServer.DB
             var item = context.Cafe.FirstOrDefault(c => c.CafeId == cafeId.ToByteArray());
             context.Cafe.Remove(item ?? throw new InvalidOperationException());
 
-            var cafeEmpitem = context.Cafeemployee.Where(c => c.CafeId == cafeId.ToByteArray()).ToList();
+            var cafeEmpitem = context.Cafeemployee.Include(c=>c.Employee).Where(c => c.CafeId == cafeId.ToByteArray()).ToList();
+            var employeeList = cafeEmpitem.Select(c => c.Employee).ToList();
             context.RemoveRange(cafeEmpitem);
-
+            context.RemoveRange(employeeList);
 
             //check employees are deleted
             context.SaveChanges();
