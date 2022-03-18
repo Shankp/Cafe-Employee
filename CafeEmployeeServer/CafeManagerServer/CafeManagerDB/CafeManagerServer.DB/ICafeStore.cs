@@ -9,7 +9,7 @@ namespace CafeManagerServer.DB
     {
         List<Cafe> GetCafe(string location);
 
-        bool CreateCafe(Cafe cafe);
+        int CreateCafe(Cafe cafe);
 
         bool UpdateCafe(Cafe cafe);
 

@@ -18,7 +18,7 @@ namespace CafeManagerServer.Services
             return _cafeStore.GetCafe(location);
         }
 
-        public bool CreateCafe(Cafe cafe)
+        public int CreateCafe(Cafe cafe)
         {
             return _cafeStore.CreateCafe(cafe);
         }

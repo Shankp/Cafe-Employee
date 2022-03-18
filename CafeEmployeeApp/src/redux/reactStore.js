@@ -3,6 +3,7 @@ import cafeStateReducer from './Slices/CafeStateSlice'
 import employeeIdStateReducer from './Slices/EmployeeIdSlice'
 import employeeStateReducer from './Slices/EmployeeStateSlice'
 import CafeIdStateReducer from './Slices/CafeIdStateSlice'
+import UpdateStateSlice from './Slices/UpdateStateSlice'
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
     cafe: cafeStateReducer,
     employeeViewState: employeeStateReducer,
     employeeId: employeeIdStateReducer,
-    cafeId: CafeIdStateReducer
+    cafeId: CafeIdStateReducer,
+    CafeList: UpdateStateSlice
   },
 })

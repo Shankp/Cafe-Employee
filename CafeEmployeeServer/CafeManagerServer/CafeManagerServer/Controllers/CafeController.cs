@@ -38,7 +38,7 @@ namespace CafeManagerServer.Controllers
 
         [HttpPost]
         [Route("add")]
-        public ActionResult<bool> AddCafe([FromBody] Cafe cafe)
+        public ActionResult<int> AddCafe([FromBody] Cafe cafe)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace CafeManagerServer.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
+                return 0;
             }
 
         }

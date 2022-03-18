@@ -2,6 +2,7 @@ import { Button, Form, Input, notification } from 'antd';
 import { useDispatch } from 'react-redux'
 import { GetCafeOverView } from '../../redux/Slices/CafeStateSlice'
 import { CreateCafe } from './../../Services/CafeService'
+import { GetCafeListByState } from '../../redux/Slices/UpdateStateSlice'
 
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -27,11 +28,12 @@ const validateMessages = {
 const MyForm = () => {
 
     const dispatch = useDispatch()
-    const OnFinish = async (values: any) => {
+    const OnFinish = async (values) => {
 
         var cafeCreated = await CreateCafe(values)
-        if (cafeCreated) {
+        if (cafeCreated) {            
             dispatch(GetCafeOverView())
+            dispatch(GetCafeListByState(cafeCreated))
         } else {
             openNotification()
         }

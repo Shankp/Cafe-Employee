@@ -28,13 +28,13 @@ namespace CafeManagerServer.DB
             return cafeList.Select(Mapper.MapCafeToDataCafe).OrderByDescending(c => c.EmployeeCount).ToList();
         }
 
-        public bool CreateCafe(Cafe cafe)
+        public int CreateCafe(Cafe cafe)
         {
             using var context = new cafemanagerdbContext(_configuration);
             var cafeEntity = Mapper.MapDataCafeToCafe(cafe);
             context.Cafe.Add(cafeEntity);
             context.SaveChanges();
-            return true;
+            return context.Cafe.Count();
         }
 
         public bool UpdateCafe(Cafe cafe)
