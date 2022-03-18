@@ -1,7 +1,7 @@
-
-import { Button, Form, Input, InputNumber } from 'antd';
-import { useSelector, useDispatch } from 'react-redux'
-import { GetCafeOverView } from './CafeStateSlice'
+import { Button, Form, Input, notification } from 'antd';
+import { useDispatch } from 'react-redux'
+import { GetCafeOverView } from '../../redux/Slices/CafeStateSlice'
+import { CreateCafe } from './../../Services/CafeService'
 
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -24,37 +24,45 @@ const validateMessages = {
     },
 };
 
-
 const MyForm = () => {
 
-    const state = useSelector((state) => state.cafe.value);
     const dispatch = useDispatch()
+    const OnFinish = async (values: any) => {
 
-    const onFinish = (values: any) => {
-        //console.log(values);
-
+        var cafeCreated = await CreateCafe(values)
+        if (cafeCreated) {
+            dispatch(GetCafeOverView())
+        } else {
+            openNotification()
+        }
     };
 
-    const cancelForm = () => {        //console.log(values);
-
+    const cancelForm = () => {
         dispatch(GetCafeOverView())
     };
 
-
-
+    const openNotification = () => {
+        notification.error({
+            message: 'Failed to save new Cafe',
+            description: '',
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+    };
 
     return (
-        <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} style={{ margin: 50 }}>
-            <Form.Item span={1} name={['user', 'name']} label="Cafe Name" rules={[{ required: true }]}>
+        <Form {...layout} name="nest-messages" onFinish={OnFinish} validateMessages={validateMessages} style={{ margin: 50 }}>
+            <Form.Item span={1} name={['cafe', 'Name']} label="Cafe Name" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
-            <Form.Item name={['user', 'description']} label="Description">
+            <Form.Item name={['cafe', 'Description']} label="Description" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
-            <Form.Item name={['user', 'logo']} label="Logo" rules={[{ type: 'number', min: 0, max: 99 }]}>
+            {/* <Form.Item name={['user', 'logo']} label="Logo" rules={[{ type: 'number', min: 0, max: 99 }]}>
                 <InputNumber />
-            </Form.Item>
-            <Form.Item name={['user', 'Location']} label="Location">
+            </Form.Item> */}
+            <Form.Item name={['cafe', 'Location']} label="Location" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
 

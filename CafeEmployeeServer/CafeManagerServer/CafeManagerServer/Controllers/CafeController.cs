@@ -72,12 +72,12 @@ namespace CafeManagerServer.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
-        public ActionResult<bool> DeleteCafe(Guid cafeId)
+        [Route("delete/{cafeId}")]
+        public ActionResult<bool> DeleteCafe(string cafeId)
         {
             try
             {
-                var isDeleted = _cafeService.DeleteCafe(cafeId);
+                var isDeleted = _cafeService.DeleteCafe(new Guid(cafeId));
                 return Ok(isDeleted);
             }
             catch (Exception e)

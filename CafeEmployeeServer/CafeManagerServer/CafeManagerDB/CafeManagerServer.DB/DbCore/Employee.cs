@@ -14,6 +14,7 @@ namespace CafeManagerServer.DB.DbCore
         public string EmployeeName { get; set; }
         public string Email { get; set; }
         public int Gender { get; set; }
+        public int PhoneNumber { get; set; }
 
         public virtual ICollection<Cafeemployee> Cafeemployee { get; set; }
     }

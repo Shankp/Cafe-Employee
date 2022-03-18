@@ -10,6 +10,8 @@ namespace CafeManager.Common.Models
         public byte[] Logo { get; set; }
         public string Location { get; set; }
         public int EmployeeCount { get; set; }
+        public Guid Action { get; set; }
+        public Guid Employee { get; set; }
 
     }
 }

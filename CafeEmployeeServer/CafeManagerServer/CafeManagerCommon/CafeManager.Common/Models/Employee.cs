@@ -12,5 +12,6 @@ namespace CafeManager.Common.Models
         public int DaysWorked { get; set; }
         public string CafeName { get; set; }
         public Guid CafeId { get; set; }
+        public string Action { get; set; }
     }
 }

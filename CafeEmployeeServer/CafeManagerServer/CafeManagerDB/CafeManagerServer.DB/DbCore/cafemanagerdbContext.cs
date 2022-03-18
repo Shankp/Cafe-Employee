@@ -67,7 +67,7 @@ namespace CafeManagerServer.DB.DbCore
 
                 entity.Property(e => e.CafeId).HasColumnType("binary(16)");
 
-                entity.Property(e => e.EmployeeId).HasMaxLength(10);
+                entity.Property(e => e.EmployeeId).HasMaxLength(100);
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
 
@@ -92,7 +92,7 @@ namespace CafeManagerServer.DB.DbCore
                     .HasName("EmployeeId")
                     .IsUnique();
 
-                entity.Property(e => e.EmployeeId).HasMaxLength(10);
+                entity.Property(e => e.EmployeeId).HasMaxLength(100);
 
                 entity.Property(e => e.Email)
                     .IsRequired()

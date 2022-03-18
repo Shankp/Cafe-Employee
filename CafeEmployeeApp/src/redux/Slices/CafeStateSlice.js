@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CafeState } from '../Common/CommonUtils'
+import { CafeState } from '../../Components/Common/CommonUtils'
 
 export const cafeStateSlice = createSlice({
     name: 'cafe',

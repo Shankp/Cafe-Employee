@@ -9,7 +9,7 @@ namespace CafeManagerServer.Services
 {
     public interface IEmployeeService
     {
-        List<Employee> GetEmployee(string cafeName);
+        List<Employee> GetEmployee(string cafeId);
 
         bool CreateEmployee(Employee employee);
 

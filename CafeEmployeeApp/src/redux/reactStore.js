@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import cafeStateReducer from './../Components/cafe/CafeStateSlice'
-import employeeIdStateReducer from './../Components/Employee/EmployeeIdSlice'
-import employeeStateReducer from './../Components/Employee/EmployeeStateSlice'
+import cafeStateReducer from './Slices/CafeStateSlice'
+import employeeIdStateReducer from './Slices/EmployeeIdSlice'
+import employeeStateReducer from './Slices/EmployeeStateSlice'
+import CafeIdStateReducer from './Slices/CafeIdStateSlice'
 
 
 export default configureStore({
   reducer: {
     cafe: cafeStateReducer,
     employeeViewState: employeeStateReducer,
-    employeeId: employeeIdStateReducer
+    employeeId: employeeIdStateReducer,
+    cafeId: CafeIdStateReducer
   },
 })

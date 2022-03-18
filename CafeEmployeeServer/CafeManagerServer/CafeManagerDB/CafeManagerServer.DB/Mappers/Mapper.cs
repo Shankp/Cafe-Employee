@@ -16,7 +16,9 @@ namespace CafeManagerServer.DB.Mappers
                 Description = cafe.CafeDescription,
                 EmployeeCount = cafe.Cafeemployee.Count,
                 Name = cafe.CafeName,
-                Logo = cafe.Logo
+                Logo = cafe.Logo,
+                Action = new Guid(cafe.CafeId),
+                Employee = new Guid(cafe.CafeId)
             };
         }
 
@@ -24,15 +26,15 @@ namespace CafeManagerServer.DB.Mappers
         {
             return new DbCore.Cafe()
             {
+                CafeId = Guid.NewGuid().ToByteArray(),
                 Location = cafe.Location,
-                CafeId = cafe.CafeId.ToByteArray(),
                 CafeDescription = cafe.Description,
                 CafeName = cafe.Name,
                 Logo = cafe.Logo
             };
         }
 
-        public static Employee MapEmployeeToDataEmployee(DbCore.Employee employee)
+        public static Employee MapEmployeeToDataEmployee(DbCore.Employee employee, DateTime startDate,string cafeName)
         {
             return new Employee()
             {
@@ -40,7 +42,11 @@ namespace CafeManagerServer.DB.Mappers
                 Email = employee.Email,
                 EmployeeId = employee.EmployeeId,
                 Gender = employee.Gender,
-                PhoneNumber = employee.Gender
+                PhoneNumber = employee.PhoneNumber,
+                DaysWorked = (int) ((DateTime.Now.Date - startDate).TotalDays),
+                CafeName = cafeName,
+                Action = employee.EmployeeId
+
             };
         }
 
@@ -52,7 +58,7 @@ namespace CafeManagerServer.DB.Mappers
                 Email = employee.Email,
                 EmployeeId = employee.EmployeeId,
                 Gender = employee.Gender,
-
+                PhoneNumber = employee.PhoneNumber
             };
         }
     }

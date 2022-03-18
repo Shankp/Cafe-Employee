@@ -14,13 +14,15 @@ namespace CafeManagerServer.Services
         {
             _employeeStore = employeeStore;
         }
-        public List<Employee> GetEmployee(string cafeName)
+        public List<Employee> GetEmployee(string cafeId)
         {
-            return _employeeStore.GetEmployee(cafeName);
+            return _employeeStore.GetEmployee(cafeId);
         }
 
         public bool CreateEmployee(Employee employee)
         {
+            var employeeID = "UI" + Guid.NewGuid().ToString("N");
+            employee.EmployeeId = employeeID;
             return _employeeStore.CreateEmployee(employee);
         }
 

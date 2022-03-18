@@ -4,33 +4,45 @@ using System.Linq;
 using System.Text;
 using CafeManagerServer.DB.DbCore;
 using CafeManagerServer.DB.Mappers;
+using Microsoft.EntityFrameworkCore;
 using Employee = CafeManager.Common.Models.Employee;
 
 namespace CafeManagerServer.DB
 {
     public class EmployeeStore : IEmployeeStore
     {
-        public List<Employee> GetEmployee(string cafeName)
+        public List<Employee> GetEmployee(string cafeId)
         {
             using var context = new cafemanagerdbContext();
-            if (!string.IsNullOrEmpty(cafeName))
+            var cafeGuid = new Guid(cafeId);
+            var cafeDetail = context.Cafe.FirstOrDefault(c => c.CafeId == cafeGuid.ToByteArray());
+            if (!string.IsNullOrEmpty(cafeId))
             {
-                var empIdInCafe = context.Cafeemployee.Where(c => c.Cafe.CafeName == cafeName).ToList();
-                return empIdInCafe.Select(c => Mapper.MapEmployeeToDataEmployee(c.Employee)).OrderByDescending(c => c.DaysWorked).ToList();
+
+                var empIdInCafe = context.Cafeemployee.Include(c => c.Employee).Where(c => c.Cafe.CafeId == cafeGuid.ToByteArray()).ToList();
+                empIdInCafe.OrderBy(c => c.StartDate);
+                return empIdInCafe.Select(c => Mapper.MapEmployeeToDataEmployee(c.Employee, c.StartDate, cafeDetail?.CafeName)).ToList();
             }
-            return context.Employee.Select(c => Mapper.MapEmployeeToDataEmployee(c)).OrderByDescending(c => c.DaysWorked).ToList();
+            var empIdInCaf = context.Cafeemployee.Include(c => c.Employee).OrderBy(c => c.StartDate).ToList();
+            return empIdInCaf.Select(c => Mapper.MapEmployeeToDataEmployee(c.Employee, c.StartDate, cafeDetail?.CafeName)).ToList();
         }
 
         public bool CreateEmployee(Employee employee)
         {
-
             using var context = new cafemanagerdbContext();
-
-            var cafe = context.Cafe.FirstOrDefault(c => c.CafeId == employee.CafeId.ToByteArray());
             var employeeEntity = Mapper.MapDataEmployeeToEmployee(employee);
-            employeeEntity.Cafeemployee.Add(new Cafeemployee() { CafeId = cafe.CafeId, EmployeeId = employee.Name, StartDate = DateTime.Now.Date });
-            context.Employee.Add(employeeEntity);
-            
+            if (employee.CafeId == Guid.Empty)
+            {
+                context.Employee.Add(employeeEntity);
+            }
+            else
+            {
+                var cafe = context.Cafe.FirstOrDefault(c => c.CafeId == employee.CafeId.ToByteArray());
+                employeeEntity.Cafeemployee.Add(new Cafeemployee() { CafeId = cafe?.CafeId, EmployeeId = employee.Name, StartDate = DateTime.Now.Date });
+                context.Employee.Add(employeeEntity);
+            }
+         
+
             context.SaveChanges();
             return true;
         }
@@ -40,15 +52,25 @@ namespace CafeManagerServer.DB
             using var context = new cafemanagerdbContext();
 
             var empItem = context.Employee.FirstOrDefault(c => c.EmployeeId == employee.EmployeeId);
-            empItem.EmployeeName = employee.Name;
-            empItem.Email = employee.Email;
-            //empItem.Cafeemployee.FirstOrDefault().CafeId = employee.CafeId.ToByteArray();
+            if (empItem != null)
+            {
+                empItem.EmployeeName = employee.Name;
+                empItem.Email = employee.Email;
+                empItem.Gender = employee.Gender;
+            }
 
 
             var empCafeItem = context.Cafeemployee.FirstOrDefault(c => c.EmployeeId == employee.EmployeeId);
-            if (new Guid(empCafeItem.CafeId) != employee.CafeId)
+            if (empCafeItem != null && new Guid(empCafeItem.CafeId) != employee.CafeId)
             {
-                empCafeItem.CafeId = employee.CafeId.ToByteArray();
+                context.Cafeemployee.Remove(empCafeItem);
+
+                context.Cafeemployee.Add(new Cafeemployee()
+                {
+                    CafeId = employee.CafeId.ToByteArray(),
+                    EmployeeId = employee.EmployeeId,
+                    StartDate = DateTime.Now.Date
+                });
             }
 
             context.SaveChanges();
@@ -59,10 +81,10 @@ namespace CafeManagerServer.DB
         {
             using var context = new cafemanagerdbContext();
             var empCafe = context.Cafeemployee.FirstOrDefault(c => c.EmployeeId == employeeId);
-            context.Cafeemployee.Remove(empCafe);
+            context.Cafeemployee.Remove(empCafe ?? throw new InvalidOperationException());
 
             var employee = context.Employee.FirstOrDefault(c => c.EmployeeId == employeeId);
-            context.Employee.Remove(employee);
+            context.Employee.Remove(employee ?? throw new InvalidOperationException());
             context.SaveChanges();
             return true;
         }

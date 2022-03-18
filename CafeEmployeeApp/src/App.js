@@ -14,11 +14,9 @@ function App() {
       <Content>
         <Router>
           <Routes >
-
             <Route path="/cafe" element={<CafeTable />} />
             <Route path="/employees" element={<EmployeeTable />} />
             <Route path="/" element={<CafeTable />} />
-
           </Routes >
         </Router>
       </Content>

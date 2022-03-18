@@ -7,7 +7,7 @@ namespace CafeManagerServer.DB
 {
     public interface IEmployeeStore
     {
-        List<Employee> GetEmployee(string cafeName);
+        List<Employee> GetEmployee(string cafeId);
 
         bool CreateEmployee(Employee employee);
 

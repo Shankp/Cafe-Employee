@@ -20,12 +20,11 @@ namespace CafeManagerServer.Controllers
         }
 
         [HttpGet]
-        [Route("location")]
-        public ActionResult<List<Employee>> GetCafeList(string cafeName)
-        {
+        [Route("cafe/{cafeId}")]
+        public ActionResult<List<Employee>> GetCafeList(string cafeId) {
             try
             {
-                return _employeeService.GetEmployee(cafeName);
+                return _employeeService.GetEmployee(cafeId);
             }
             catch (Exception e)
             {
@@ -71,7 +70,7 @@ namespace CafeManagerServer.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{empId}")]
         public ActionResult<bool> DeleteCafe(string empId)
         {
             try

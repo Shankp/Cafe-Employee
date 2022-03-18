@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EmployeeState } from '../Common/CommonUtils'
+import { EmployeeState } from '../../Components/Common/CommonUtils'
 
 export const EmployeeStateSlice = createSlice({
     name: 'employeeViewState',
