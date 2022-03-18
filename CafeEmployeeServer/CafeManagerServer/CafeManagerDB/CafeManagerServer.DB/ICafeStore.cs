@@ -13,6 +13,6 @@ namespace CafeManagerServer.DB
 
         bool UpdateCafe(Cafe cafe);
 
-        bool DeleteCafe(Guid cafeId);
+        int DeleteCafe(Guid cafeId);
     }
 }

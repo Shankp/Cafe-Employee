@@ -6,7 +6,7 @@ import { Row, Col, Button } from 'antd';
 import { CafeState } from './../Common/CommonUtils'
 import { useSelector, useDispatch } from 'react-redux'
 import { GetCafeAddView } from '../../redux/Slices/CafeStateSlice'
-import { GetCafeListByState } from '../../redux/Slices/UpdateStateSlice'
+import { GetCafeListByState } from '../../redux/Slices/UpdateCafeStateSlice'
 import MyForm from './CafeForm'
 import { GetCafeList } from './../../Services/CafeService'
 
@@ -21,16 +21,12 @@ const CafeTable = () => {
     const cafeListCount = useSelector((state) => state.CafeList.value);
     const dispatch = useDispatch()
     const gridRef = useRef();
-    const [rowData, setRowData] = useState();
-    const [cafeCount, setCafe] = [0];
+    const [rowData, setRowData] = useState();    
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
         const cafeList = await GetCafeList();
         setRowData(cafeList);
-       
-        
-
     }, [cafeListCount]);
 
     const [style] = useState({
@@ -47,7 +43,7 @@ const CafeTable = () => {
         { field: 'action', cellRenderer: ActionClickRenderer }
     ]);
 
-    const onFirstDataRendered = useCallback((params) => {
+    const onFirstDataRendered = useCallback(() => {
         gridRef.current.api.sizeColumnsToFit();
         gridRef.current.api.refreshCells({ force: true });
     }, []);

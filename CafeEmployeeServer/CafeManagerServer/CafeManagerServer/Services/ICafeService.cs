@@ -15,7 +15,7 @@ namespace CafeManagerServer.Services
 
         bool UpdateCafe(Cafe cafe);
 
-        bool DeleteCafe(Guid cafeId);
+         int DeleteCafe(Guid cafeId);
 
     }
 }

@@ -28,7 +28,7 @@ namespace CafeManagerServer.Services
             return _cafeStore.UpdateCafe(cafe);
         }
 
-        public bool DeleteCafe(Guid cafeId)
+        public int DeleteCafe(Guid cafeId)
         {
             return _cafeStore.DeleteCafe(cafeId);
         }

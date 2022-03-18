@@ -16,3 +16,6 @@
 
 7. Go to the `CafeEmployeeApp` folder and open CMD and run `npm start` command to run reactjs app
  
+ 
+###TODO:
+ Editing exisiting cafes and employees

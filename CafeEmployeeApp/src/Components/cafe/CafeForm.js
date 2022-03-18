@@ -2,7 +2,7 @@ import { Button, Form, Input, notification } from 'antd';
 import { useDispatch } from 'react-redux'
 import { GetCafeOverView } from '../../redux/Slices/CafeStateSlice'
 import { CreateCafe } from './../../Services/CafeService'
-import { GetCafeListByState } from '../../redux/Slices/UpdateStateSlice'
+import { GetCafeListCountByState } from '../../redux/Slices/UpdateCafeStateSlice'
 
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -29,12 +29,11 @@ const MyForm = () => {
 
     const dispatch = useDispatch()
     const OnFinish = async (values) => {
-
-        var cafeCreated = await CreateCafe(values)
-        if (cafeCreated) {            
+        try {
+            var cafeCreated = await CreateCafe(values)
             dispatch(GetCafeOverView())
-            dispatch(GetCafeListByState(cafeCreated))
-        } else {
+            dispatch(GetCafeListCountByState(cafeCreated))
+        } catch (error) {
             openNotification()
         }
     };

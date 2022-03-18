@@ -35,24 +35,26 @@ namespace CafeManagerServer.DB
             return empIdInCaf.Select(c => Mapper.MapEmployeeToDataEmployee(c.Employee, c.StartDate, cafeDetail?.CafeName)).ToList();
         }
 
-        public bool CreateEmployee(Employee employee)
+        public int CreateEmployee(Employee employee)
         {
             using var context = new cafemanagerdbContext(_configuration);
             var employeeEntity = Mapper.MapDataEmployeeToEmployee(employee);
+            int employeeCount = 0;
             if (employee.CafeId == Guid.Empty)
             {
                 context.Employee.Add(employeeEntity);
+                context.SaveChanges();
+                employeeCount = context.Employee.Count();
             }
             else
             {
                 var cafe = context.Cafe.FirstOrDefault(c => c.CafeId == employee.CafeId.ToByteArray());
-                employeeEntity.Cafeemployee.Add(new Cafeemployee() { CafeId = cafe?.CafeId, EmployeeId = employee.Name, StartDate = DateTime.Now.Date });
+                employeeEntity.Cafeemployee.Add(new Cafeemployee() { CafeId = cafe?.CafeId, EmployeeId = employee.EmployeeId, StartDate = DateTime.Now.Date });
                 context.Employee.Add(employeeEntity);
+                context.SaveChanges();
+                employeeCount = context.Cafeemployee.Count(c => c.CafeId == employee.CafeId.ToByteArray());
             }
-         
-
-            context.SaveChanges();
-            return true;
+            return employeeCount;
         }
 
         public bool UpdateEmployee(Employee employee)

@@ -21,6 +21,8 @@ const EmployeeTable = () => {
 
 
     const state = useSelector((state) => state.employeeViewState.value);
+    const employeeListCount = useSelector((state) => state.empoyeeList.value);
+  
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -52,18 +54,17 @@ const EmployeeTable = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
-        // eslint-disable-next-line eqeqeq
-        console.log(state)
+        // eslint-disable-next-line eqeqeq      
 
         if (cafeId === null || cafeId === undefined) {
             dispatch(GetCafeOverView());
             navigate("/cafe");
         } else {
             var empList = await GetEmployeeListService(cafeId);
-            setRowData(empList);           
+            setRowData(empList);
         }
 
-    }, []);
+    }, [employeeListCount]);
 
     return (
         <div>
@@ -79,7 +80,7 @@ const EmployeeTable = () => {
                     </Row>
                     <Row>
                         <Col span={1} />
-                        <Col span={22}>                         
+                        <Col span={22}>
                             <div className="ag-theme-alpine" style={{ height: 400, width: 'auto' }}>
                                 <AgGridReact
                                     ref={gridRef}

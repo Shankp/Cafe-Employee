@@ -11,7 +11,7 @@ namespace CafeManagerServer.Services
     {
         List<Employee> GetEmployee(string cafeId);
 
-        bool CreateEmployee(Employee employee);
+        int CreateEmployee(Employee employee);
 
         bool UpdateEmployee (Employee employee);
 

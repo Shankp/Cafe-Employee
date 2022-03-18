@@ -19,10 +19,10 @@ namespace CafeManagerServer.Services
             return _employeeStore.GetEmployee(cafeId);
         }
 
-        public bool CreateEmployee(Employee employee)
+        public int CreateEmployee(Employee employee)
         {
-            var employeeID = "UI" + Guid.NewGuid().ToString("N");
-            employee.EmployeeId = employeeID;
+            var employeeId = "UI" + Guid.NewGuid().ToString("N");
+            employee.EmployeeId = employeeId;
             return _employeeStore.CreateEmployee(employee);
         }
 

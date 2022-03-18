@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Radio, notification } from 'antd';
 import { useSelector, useDispatch } from 'react-redux'
 import { GetEmployeeList } from '../../redux/Slices/EmployeeStateSlice'
 import { CreateEmployee } from './../../Services/EmployeeService'
+import { GetEmployeeCountByState } from '../../redux/Slices/UpdateEmployeeStateSlice'
 
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -27,17 +28,20 @@ const EmployeeForm = () => {
 
         if (cafeId === null || cafeId === undefined) {
             openNotification("Cafe is not selected for this employee")
-        } else {            
-            var employeeCreated = await CreateEmployee(values, gender, cafeId);
-            if (employeeCreated) {
+        } else {
+            try {
+                var employeeCreated = await CreateEmployee(values, gender, cafeId)
+                dispatch(GetEmployeeCountByState(employeeCreated))
                 dispatch(GetEmployeeList())
-            } else {
+
+            } catch (error) {
                 openNotification()
             }
+
         }
     };
 
-    const cancelForm = () => {       
+    const cancelForm = () => {
         dispatch(GetEmployeeList())
     };
     const onChange = e => {

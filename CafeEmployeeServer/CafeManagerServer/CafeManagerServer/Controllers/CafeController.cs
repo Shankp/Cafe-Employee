@@ -73,7 +73,7 @@ namespace CafeManagerServer.Controllers
 
         [HttpDelete]
         [Route("delete/{cafeId}")]
-        public ActionResult<bool> DeleteCafe(string cafeId)
+        public ActionResult<int> DeleteCafe(string cafeId)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace CafeManagerServer.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
+                return 0;
             }
 
         }

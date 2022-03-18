@@ -6,12 +6,12 @@ export const UpdateCafeListSlice = createSlice({
         value: 0,
     },
     reducers: {
-        GetCafeListByState: (state, action) => {
+        GetCafeListCountByState: (state, action) => {
             state.value = action.payload
         }
     },
 })
 
-export const { GetCafeListByState } = UpdateCafeListSlice.actions
+export const { GetCafeListCountByState } = UpdateCafeListSlice.actions
 
 export default UpdateCafeListSlice.reducer

@@ -53,7 +53,7 @@ namespace CafeManagerServer.DB
             return true;
         }
 
-        public bool DeleteCafe(Guid cafeId)
+        public int DeleteCafe(Guid cafeId)
         {
             using var context = new cafemanagerdbContext(_configuration);
 
@@ -66,7 +66,7 @@ namespace CafeManagerServer.DB
 
             //check employees are deleted
             context.SaveChanges();
-            return true;
+            return context.Cafe.Count();
         }
     }
 }
