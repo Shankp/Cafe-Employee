@@ -1,13 +1,18 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace CafeManagerServer.DB.DbCore
 {
     public partial class cafemanagerdbContext : DbContext
     {
-        public cafemanagerdbContext()
+        protected readonly IConfiguration Configuration;
+
+
+        public cafemanagerdbContext(IConfiguration configuration)
         {
+            Configuration = configuration;
         }
 
         public cafemanagerdbContext(DbContextOptions<cafemanagerdbContext> options)
@@ -24,7 +29,9 @@ namespace CafeManagerServer.DB.DbCore
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySQL("server=localhost;user=root;database=cafemanagerdb;port=3306;password=Mysql4shan1$");
+                var connection = Configuration.GetSection("Data").GetConnectionString("Connection");
+                optionsBuilder.UseMySQL(connection);
+               
             }
         }
 

@@ -5,15 +5,23 @@ using System.Text;
 using CafeManagerServer.DB.DbCore;
 using CafeManagerServer.DB.Mappers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Employee = CafeManager.Common.Models.Employee;
 
 namespace CafeManagerServer.DB
 {
     public class EmployeeStore : IEmployeeStore
     {
+        private IConfiguration _configuration;
+
+        public EmployeeStore(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public List<Employee> GetEmployee(string cafeId)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
             var cafeGuid = new Guid(cafeId);
             var cafeDetail = context.Cafe.FirstOrDefault(c => c.CafeId == cafeGuid.ToByteArray());
             if (!string.IsNullOrEmpty(cafeId))
@@ -29,7 +37,7 @@ namespace CafeManagerServer.DB
 
         public bool CreateEmployee(Employee employee)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
             var employeeEntity = Mapper.MapDataEmployeeToEmployee(employee);
             if (employee.CafeId == Guid.Empty)
             {
@@ -49,7 +57,7 @@ namespace CafeManagerServer.DB
 
         public bool UpdateEmployee(Employee employee)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
 
             var empItem = context.Employee.FirstOrDefault(c => c.EmployeeId == employee.EmployeeId);
             if (empItem != null)
@@ -79,7 +87,7 @@ namespace CafeManagerServer.DB
 
         public bool DeleteEmployee(string employeeId)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
             var empCafe = context.Cafeemployee.FirstOrDefault(c => c.EmployeeId == employeeId);
             context.Cafeemployee.Remove(empCafe ?? throw new InvalidOperationException());
 

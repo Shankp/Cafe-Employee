@@ -4,15 +4,23 @@ using System.Linq;
 using System.Text;
 using CafeManagerServer.DB.DbCore;
 using CafeManagerServer.DB.Mappers;
+using Microsoft.Extensions.Configuration;
 using Cafe = CafeManager.Common.Models.Cafe;
 
 namespace CafeManagerServer.DB
 {
     public class CafeStore : ICafeStore
     {
+        private IConfiguration _configuration;
+
+        public CafeStore(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public List<Cafe> GetCafe(string location)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
             var cafeList = context.Cafe.ToList();
             if (!string.IsNullOrEmpty(location))
                 cafeList = cafeList.Where(c => c.Location == location).ToList();
@@ -22,7 +30,7 @@ namespace CafeManagerServer.DB
 
         public bool CreateCafe(Cafe cafe)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
             var cafeEntity = Mapper.MapDataCafeToCafe(cafe);
             context.Cafe.Add(cafeEntity);
             context.SaveChanges();
@@ -31,7 +39,7 @@ namespace CafeManagerServer.DB
 
         public bool UpdateCafe(Cafe cafe)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
 
             var item = context.Cafe.FirstOrDefault(c => c.CafeId == cafe.CafeId.ToByteArray());
             if (item != null)
@@ -47,7 +55,7 @@ namespace CafeManagerServer.DB
 
         public bool DeleteCafe(Guid cafeId)
         {
-            using var context = new cafemanagerdbContext();
+            using var context = new cafemanagerdbContext(_configuration);
 
             var item = context.Cafe.FirstOrDefault(c => c.CafeId == cafeId.ToByteArray());
             context.Cafe.Remove(item ?? throw new InvalidOperationException());
