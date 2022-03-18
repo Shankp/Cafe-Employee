@@ -3,6 +3,8 @@
 -- Host: localhost    Database: cafemanagerdb
 -- ------------------------------------------------------
 -- Server version	8.0.28
+CREATE SCHEMA `cafemanagerdb` ;
+USE cafemanagerdb;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -39,7 +41,7 @@ CREATE TABLE `cafe` (
 
 LOCK TABLES `cafe` WRITE;
 /*!40000 ALTER TABLE `cafe` DISABLE KEYS */;
-INSERT INTO `cafe` VALUES (_binary '\rû\À∆©w@µ\\ÛSªÅö','Mountain','located on top of goopr mountain','Kandy',NULL),(_binary 'Ùå\Îõ*L≤∫\Á⁄ªÑÅ`','Sea Face','Open 24*7','Colombo 2',NULL),(_binary 'ÛC\‡¬Ü´BOèó\«\Ï\Ïı±','Rock','open weekdays','Colombo 1',NULL);
+INSERT INTO `cafe` VALUES (_binary '\r?\À∆©w@µ\\ÛSªÅ?','Mountain','located on top of goopr mountain','Kandy',NULL),(_binary 'Ù?\Î?*L≤∫\Á⁄ª?Å`','Sea Face','Open 24*7','Colombo 2',NULL),(_binary 'ÛC\‡¬?´BOè?\«\Ï\Ïı±','Rock','open weekdays','Colombo 1',NULL);
 /*!40000 ALTER TABLE `cafe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +69,7 @@ CREATE TABLE `cafeemployee` (
 
 LOCK TABLES `cafeemployee` WRITE;
 /*!40000 ALTER TABLE `cafeemployee` DISABLE KEYS */;
-INSERT INTO `cafeemployee` VALUES (_binary '\rû\À∆©w@µ\\ÛSªÅö','UI83dab453982e42b1a15dc1c66bd00224','2022-03-18'),(_binary '\rû\À∆©w@µ\\ÛSªÅö','UIba3362ca93c44829beec47934be24383','2022-03-18'),(_binary 'Ùå\Îõ*L≤∫\Á⁄ªÑÅ`','UI8babbb0e3732419886a4e97918e1d558','2022-03-18'),(_binary 'Ùå\Îõ*L≤∫\Á⁄ªÑÅ`','UIc2bc0bef90604e8dbdc9914c592f2416','2022-03-18');
+INSERT INTO `cafeemployee` VALUES (_binary '\r?\À∆©w@µ\\ÛSªÅ?','UI83dab453982e42b1a15dc1c66bd00224','2022-03-18'),(_binary '\r?\À∆©w@µ\\ÛSªÅ?','UIba3362ca93c44829beec47934be24383','2022-03-18'),(_binary 'Ù?\Î?*L≤∫\Á⁄ª?Å`','UI8babbb0e3732419886a4e97918e1d558','2022-03-18'),(_binary 'Ù?\Î?*L≤∫\Á⁄ª?Å`','UIc2bc0bef90604e8dbdc9914c592f2416','2022-03-18');
 /*!40000 ALTER TABLE `cafeemployee` ENABLE KEYS */;
 UNLOCK TABLES;
 

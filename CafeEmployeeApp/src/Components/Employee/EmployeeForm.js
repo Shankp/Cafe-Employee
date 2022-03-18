@@ -22,7 +22,7 @@ const EmployeeForm = () => {
     const [gender, setGender] = useState();
     const cafeId = useSelector((state) => state.cafeId.value);
 
-    const onFinish = async (values: any) => {
+    const onFinish = async (values) => {
         console.log(values);
 
         if (cafeId === null || cafeId === undefined) {

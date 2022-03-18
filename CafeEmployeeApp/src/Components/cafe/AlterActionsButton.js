@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { GetCafeOverView } from "../../redux/Slices/CafeStateSlice";
 import { Popconfirm } from "antd";
-import { DeleteCafe } from "./../../Services/CafeService";
+import { DeleteCafe } from "../../Services/CafeService";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
