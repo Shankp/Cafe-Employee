@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Popconfirm } from "antd";
+import { Popconfirm, Button } from "antd";
 import { DeleteCafe } from "../../Services/CafeService";
 import { GetCafeListCountByState } from '../../redux/Slices/UpdateCafeStateSlice'
 
@@ -12,12 +12,12 @@ export default (props) => {
     console.log("edit button clicked");
   };
 
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const DeleteClicked = async () => {
-    var cafeCount = await DeleteCafe(cafeId);     
-    dispatch(GetCafeListCountByState(cafeCount))    
-   
+    var cafeCount = await DeleteCafe(cafeId);
+    dispatch(GetCafeListCountByState(cafeCount))
+
   };
 
   function cancel(e) {
@@ -26,9 +26,9 @@ export default (props) => {
 
   return (
     <span>
-      <button disabled onClick={() => editClicked()}>
+      <Button type="primary" style={{ marginRight: '5px' }} disabled onClick={() => editClicked()}>
         Edit
-      </button>
+      </Button>
       <Popconfirm
         title="Are you sure to delete?"
         onConfirm={DeleteClicked}
@@ -36,7 +36,7 @@ export default (props) => {
         okText="Yes"
         cancelText="No"
       >
-        <button>Delete</button>
+        <Button type="primary" danger >Delete</Button>
       </Popconfirm>
     </span>
   );

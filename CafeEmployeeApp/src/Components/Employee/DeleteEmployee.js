@@ -1,5 +1,5 @@
 import React from "react";
-import { Popconfirm } from "antd";
+import { Popconfirm, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { DeleteEmployee } from "./../../Services/EmployeeService";
 import { GetEmployeeCountByState } from '../../redux/Slices/UpdateEmployeeStateSlice'
@@ -29,7 +29,7 @@ export default (props) => {
                 okText="Yes"
                 cancelText="No"
             >
-                <button>Delete</button>
+                <Button type="primary" danger >Delete</Button>
             </Popconfirm>
         </span>
     );
