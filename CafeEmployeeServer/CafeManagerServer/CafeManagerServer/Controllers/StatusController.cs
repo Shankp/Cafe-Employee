@@ -9,7 +9,7 @@ namespace CafeManagerServer.Controllers
     {
         [HttpGet]
         [Route("health")]
-        public ActionResult GetCafeList(string cafeId)
+        public ActionResult GetHealth(string cafeId)
         {
             try
             {

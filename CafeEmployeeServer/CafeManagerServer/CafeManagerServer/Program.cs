@@ -20,7 +20,17 @@ namespace CafeManagerServer
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    .ConfigureAppConfiguration((context, builder) =>
+                    {
+                        var configuration = new ConfigurationBuilder()
+                         .AddJsonFile("appsettings.json", false)
+                         .AddJsonFile($"appsettings.Development.json", true)
+                         .AddEnvironmentVariables()
+                         .AddCommandLine(args)
+                         .Build();
+
+                    });
                 });
     }
 }
